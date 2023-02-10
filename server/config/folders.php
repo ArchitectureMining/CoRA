@@ -2,7 +2,7 @@
 /**
  * Folder settings
  *
- * @author Lucas Steehouwerr
+ * @author Lucas Steehouwer
  */
 
 /**

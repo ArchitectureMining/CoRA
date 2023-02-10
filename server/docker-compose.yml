@@ -6,6 +6,7 @@ services:
     ports:
       - "8000:80"
     volumes:
+      - ./:/var/www/html
       - log_volume:/var/www/html/log/
 
   database:

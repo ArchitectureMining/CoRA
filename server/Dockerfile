@@ -32,4 +32,4 @@ RUN composer install
 COPY --chown=www-data:www-data . .
 
 # Generate classmap
-RUN composer dumpautoload -o
+RUN composer dumpautoload
