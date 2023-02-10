@@ -1,7 +1,7 @@
 <?php
 /**
  * Folder settings
- * 
+ *
  * @author Lucas Steehouwerr
  */
 

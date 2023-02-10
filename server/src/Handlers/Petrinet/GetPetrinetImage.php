@@ -2,8 +2,8 @@
 
 namespace Cora\Handlers\Petrinet;
 
-use Slim\Http\Request;
-use Slim\Http\Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Http\Message\ResponseInterface as Response;
 
 use Cora\Handlers\AbstractRequestHandler;
 
@@ -15,16 +15,18 @@ use Cora\Services\GetPetrinetImageService;
 class GetPetrinetImage extends AbstractRequestHandler {
     public function handle(Request $request, Response $response, $args) {
         try {
+            $queryParams = $request->getQueryParams();
+
             $pid       = $args["petrinet_id"];
-            $mid       = $request->getParam("marking_id", NULL);
+            $mid       = $queryParams["marking_id"] ?? NULL;
             $repo      = $this->container->get(PetrinetRepo::class);
             $service   = $this->container->get(GetPetrinetImageService::class);
             $mediaType = $this->getMediaType($request);
             $view      = $this->getView($mediaType);
             $service->get($view, $pid, $mid, $repo);
+            $response->getBody()->write($view->render());
             return $response->withHeader("Content-type", $mediaType)
-                            ->withStatus(200)
-                            ->write($view->render());
+                            ->withStatus(200);
         } catch (PetrinetNotFoundException $e) {
             return $this->fail($request, $response, $e, 404);
         }

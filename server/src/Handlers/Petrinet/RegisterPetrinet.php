@@ -2,8 +2,8 @@
 
 namespace Cora\Handlers\Petrinet;
 
-use Slim\Http\Request;
-use Slim\Http\Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Http\Message\ResponseInterface as Response;
 
 use Cora\Domain\User\UserRepository as UserRepo;
 use Cora\Domain\User\Exception\UserNotFoundException;
@@ -16,8 +16,10 @@ use Cora\Services\RegisterPetrinetService;
 class RegisterPetrinet extends AbstractRequestHandler {
     public function handle(Request $request, Response $response, $args) {
         try {
-            if (is_null($userId = $request->getParsedBodyParam("user_id", NULL)))
+            $parsedBody = $request->getParsedBody();
+            if (!isset($parsedBody["user_id"]))
                 throw new BadRequestException("No user id");
+            $userId = $parsedBody["user_id"];
             $files = $request->getUploadedFiles();
             if (!isset($files["petrinet"]))
                 throw new BadRequestException("No Petri net uploaded");
@@ -34,9 +36,9 @@ class RegisterPetrinet extends AbstractRequestHandler {
                 $userRepo,
                 $petrinetRepo
             );
+            $response->getBody()->write($view->render());
             return $response->withHeader("Content-type", $mediaType)
-                            ->withStatus(201)
-                            ->write($view->render());
+                            ->withStatus(201);
         } catch (UserNotFoundException $e) {
             return $this->fail($request, $response, $e, 404);
         }

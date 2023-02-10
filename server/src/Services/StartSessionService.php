@@ -7,7 +7,7 @@ use Cora\Domain\Session\SessionRepository as SessionRepo;
 use Cora\Domain\Petrinet\PetrinetRepository as PetriRepo;
 use Cora\Domain\Petrinet\PetrinetNotFoundException;
 use Cora\Domain\User\UserRepository as UserRepo;
-use Cora\Domain\User\UserNotFoundException;
+use Cora\Domain\User\Exception\UserNotFoundException;
 use Cora\Domain\Session\View\SessionCreatedViewInterface as View;
 
 class StartSessionService {

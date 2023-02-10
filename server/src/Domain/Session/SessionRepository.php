@@ -83,7 +83,7 @@ class SessionRepository extends AbstractRepository {
     protected function createMetaLog(int $userId): MetaSessionLog {
         return new MetaSessionLog($userId);
     }
-    
+
     protected function createSessionLog(
         int $userId,
         int $petrinetId,

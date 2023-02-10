@@ -2,8 +2,8 @@
 
 namespace Cora\Handlers\User;
 
-use Slim\Http\Request;
-use Slim\Http\Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Http\Message\ResponseInterface as Response;
 
 use Cora\Domain\User\UserRepository as UserRepo;
 use Cora\Domain\User\Exception\UserNotFoundException;
@@ -23,8 +23,8 @@ class GetUser extends AbstractRequestHandler {
             $repo      = $this->container->get(UserRepo::class);
             $service   = $this->container->get(GetUserService::class);
             $service->getUser($view, $repo, $id);
-            return $response->withHeader("Content-type", $mediaType)
-                            ->write($view->render());
+            $response->getBody()->write($view->render());
+            return $response->withHeader("Content-type", $mediaType);
         } catch (UserNotFoundException $e) {
             return $this->fail($request, $response, $e, 404);
         }

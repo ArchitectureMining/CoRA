@@ -4,8 +4,8 @@ namespace Cora\Handlers;
 
 use Cora\Views\ErrorViewFactory;
 
-use Slim\Http\Request;
-use Slim\Http\Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Container\ContainerInterface as Container;
 
 use Exception;
@@ -29,7 +29,7 @@ abstract class AbstractRequestHandler extends AbstractHandler {
         $supported = $this->getSupportedErrorMediaTypes();
         return $this->negotiateType($request, $supported);
     }
-    
+
     protected function getErrorView(string $mediaType) {
         $factory = $this->getErrorViewFactory();
         return $factory->create($mediaType);
@@ -44,9 +44,9 @@ abstract class AbstractRequestHandler extends AbstractHandler {
         $mediaType = $this->getErrorMediaType($request);
         $view = $this->getErrorView($mediaType);
         $view->setException($e);
+        $response->getBody()->write($view->render());
         return $response->withHeader("Content-type", $mediaType)
-                         ->withStatus($status)
-                         ->write($view->render());
+                        ->withStatus($status);
     }
 
     protected function getSupportedErrorMediaTypes(): array {

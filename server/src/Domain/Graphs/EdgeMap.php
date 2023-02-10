@@ -7,6 +7,8 @@ use Cora\Domain\Graphs\EdgeInterface as Edge;
 use Ds\Map;
 use Ds\Set;
 
+use Traversable;
+
 class EdgeMap implements EdgeMapInterface {
     protected $map;
 
@@ -34,11 +36,11 @@ class EdgeMap implements EdgeMapInterface {
         return $this->map->isEmpty();
     }
 
-    public function jsonSerialize() {
+    public function jsonSerialize(): mixed {
         return $this->map;
     }
 
-    public function getIterator() {
+    public function getIterator(): Traversable {
         return $this->map->getIterator();
     }
 }

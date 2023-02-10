@@ -85,7 +85,7 @@ class JsonToGraph extends Converter {
         $s = preg_replace('/ /', '', $s);
         $pairs = array_filter(explode(",", $s), 'strlen');
         foreach($pairs as $pair) {
-            list($p, $t) = preg_split("/:/", $pair, NULL, PREG_SPLIT_NO_EMPTY);
+            list($p, $t) = preg_split("/:/", $pair, -1, PREG_SPLIT_NO_EMPTY);
             if (is_numeric($t))
                 $tc = new IntegerTokenCount(intval($t));
             else

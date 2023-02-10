@@ -19,8 +19,8 @@ class GetFeedbackService {
         PetriRepo $petriRepo,
         SessionRepo $sessionRepo
     ) {
-        $userId     = filter_var($userId, FILTER_SANITIZE_NUMBER_INT);
-        $sessionId  = filter_var($sessionId, FILTER_SANITIZE_NUMBER_INT);
+        $userId     = intval(filter_var($userId, FILTER_SANITIZE_NUMBER_INT));
+        $sessionId  = intval(filter_var($sessionId, FILTER_SANITIZE_NUMBER_INT));
         if (!$sessionRepo->sessionExists($userId, $sessionId))
             throw new InvalidSessionException("The session id is invalid");
         $log        = $sessionRepo->getSessionLog($userId, $sessionId);

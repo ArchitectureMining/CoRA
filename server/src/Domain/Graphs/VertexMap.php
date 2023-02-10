@@ -5,6 +5,8 @@ namespace Cora\Domain\Graphs;
 use Ds\Map;
 use Ds\Set;
 
+use Traversable;
+
 class VertexMap implements VertexMapInterface {
     protected $map;
 
@@ -28,11 +30,11 @@ class VertexMap implements VertexMapInterface {
         return $this->map->keys();
     }
 
-    public function jsonSerialize() {
+    public function jsonSerialize(): mixed {
         return $this->map;
     }
 
-    public function getIterator() {
+    public function getIterator(): Traversable {
         return $this->map->getIterator();
     }
 }

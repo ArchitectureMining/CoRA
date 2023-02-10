@@ -62,7 +62,7 @@ class UserRepository extends AbstractRepository {
         return $result;
     }
 
-    /** 
+    /**
      * Register a user
      * @param string $name the name for the user
      * @return int the id for the inserted user

@@ -3,7 +3,7 @@
 namespace Cora\Handlers;
 
 use Cora\Views\AbstractViewFactory;
-use Slim\Http\Request;
+use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Container\ContainerInterface as Container;
 
 use Negotiation\Negotiator;
@@ -11,7 +11,7 @@ use Exception;
 
 abstract class AbstractHandler {
     protected $container;
-    
+
     public function __construct(Container $container) {
         $this->container = $container;
     }

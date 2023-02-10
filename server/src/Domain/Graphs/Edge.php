@@ -25,7 +25,7 @@ class Edge implements EdgeInterface {
         return $this->label;
     }
 
-    public function jsonSerialize() {
+    public function jsonSerialize(): mixed {
         return [
             "fromId" => $this->getFrom(),
             "toId"   => $this->getTo(),

@@ -2,8 +2,8 @@
 
 namespace Cora\Handlers\Session;
 
-use Slim\Http\Request;
-use Slim\Http\Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Http\Message\ResponseInterface as Response;
 
 use Cora\Domain\User\UserRepository as UserRepo;
 use Cora\Domain\User\Exception\UserNotFoundException;
@@ -17,7 +17,9 @@ use Cora\Services\GetSessionService;
 class GetCurrentSession extends AbstractRequestHandler {
     public function handle(Request $request, Response $response, $args) {
         try {
-            $userId = $request->getParsedBodyParam("user_id", NULL);
+            $parsedBody = $request->getParsedBody();
+            $userId = $parsedBody["user_id"] ?? NULL;
+
             if (is_null($userId))
                 throw new BadRequestException("No user id supplied");
             $userRepo    = $this->container->get(UserRepo::class);
@@ -31,9 +33,9 @@ class GetCurrentSession extends AbstractRequestHandler {
                 $sessionRepo,
                 $userRepo
             );
+            $response->getBody()->write($view->render());
             return $response->withHeader("Content-type", $mediaType)
-                            ->withStatus(200)
-                            ->write($view->render());
+                            ->withStatus(200);
         } catch (UserNotFoundException $e) {
             return $this->fail($request, $response, $e, 404);
         } catch (NoSessionException $e) {

@@ -13,7 +13,6 @@ use Cora\Domain\User\View\UserCreatedViewInterface as View;
 
 class RegisterUserService {
     public function register(View &$view, UserRepo $repo, $name) {
-        $name = filter_var($name, FILTER_SANITIZE_STRING);
         $validator = $this->getValidator($repo);
         if (!$validator->validate($name))
             throw new UserRegistrationException($validator->getError());

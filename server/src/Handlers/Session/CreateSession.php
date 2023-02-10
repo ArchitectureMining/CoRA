@@ -3,8 +3,8 @@
 namespace Cora\Handlers\Session;
 
 use Cora\Domain\Petrinet\Marking\MarkingNotFoundException;
-use Slim\Http\Request;
-use Slim\Http\Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Http\Message\ResponseInterface as Response;
 
 use Cora\Domain\Petrinet\PetrinetNotFoundException;
 use Cora\Domain\Petrinet\PetrinetRepository as PetriRepo;
@@ -19,13 +19,14 @@ use Cora\Services\StartSessionService;
 class CreateSession extends AbstractRequestHandler {
     public function handle(Request $request, Response $response, $args) {
         try {
-            $userId = $request->getParsedBodyParam("user_id", NULL);
+            $parsedBody= $request->getParsedBody();
+            $userId = $parsedBody["user_id"] ?? NULL;
             if (is_null($userId))
                 throw new BadRequestException("No user id provided");
-            $netId = $request->getParsedBodyParam("petrinet_id", NULL);
+            $netId = $parsedBody["petrinet_id"] ?? NULL;
             if (is_null($netId))
                 throw new BadRequestException("No Petri net id provided");
-            $markingId = $request->getParsedBodyParam("marking_id", NULL);
+            $markingId = $parsedBody["marking_id"] ??  NULL;
             if (is_null($markingId))
                 throw new BadRequestException("No marking id provided");
             $service     = $this->container->get(StartSessionService::class);
@@ -43,9 +44,9 @@ class CreateSession extends AbstractRequestHandler {
                 $userRepo,
                 $petriRepo
             );
+            $response->getBody()->write($view->render());
             return $response->withHeader("Content-type", $mediaType)
-                            ->withStatus(201)
-                            ->write($view->render());
+                            ->withStatus(201);
         } catch (UserNotFoundException |
                  PetrinetNotFoundException |
                  MarkingNotFoundException $e) {

@@ -74,7 +74,7 @@ class Graph implements GraphInterface {
         return $this->edges;
     }
 
-    public function jsonSerialize() {
+    public function jsonSerialize(): mixed {
         return [
             "states" => $this->getVertexes(),
             "edges" => $this->getEdges(),

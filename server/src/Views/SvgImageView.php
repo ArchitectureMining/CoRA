@@ -3,6 +3,8 @@
 namespace Cora\Views;
 
 class SvgImageView implements ImageViewInterface {
+    private $data;
+
     public function getData(): string {
         return $this->data;
     }

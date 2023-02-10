@@ -2,8 +2,8 @@
 
 namespace Cora\Handlers\User;
 
-use Slim\Http\Request;
-use Slim\Http\Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Http\Message\ResponseInterface as Response;
 
 use Cora\Domain\User\UserRepository as UserRepo;
 use Cora\Domain\User\Exception\UserRegistrationException;
@@ -25,9 +25,9 @@ class RegisterUser extends AbstractRequestHandler {
             $view      = $this->getView($mediaType);
             $service   = $this->container->get(RegisterUserService::class);
             $service->register($view, $repo, $body["name"]);
+            $response->getBody()->write($view->render());
             return $response->withHeader("Content-type", $mediaType)
-                            ->withStatus(201)
-                            ->write($view->render());
+                            ->withStatus(201);
         } catch (UserRegistrationException $e) {
             return $this->fail($request, $response, $e, 400);
         }
