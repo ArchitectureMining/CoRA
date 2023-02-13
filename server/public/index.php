@@ -8,6 +8,7 @@ use DI\Container;
 
 use Tuupola\Middleware\CorsMiddleware;
 
+use Cora\Repositories;
 use Cora\Handlers;
 use Cora\Utils;
 
@@ -38,17 +39,17 @@ $container->set('db', function($c) {
     return $pdo;
 });
 
-// Register the Repositories
-$container->set(Cora\Domain\User\UserRepository::class, function($c) {
-    return new Cora\Domain\User\UserRepository($c->get('db'));
+// Register the repositories
+$container->set(Repositories\UserRepository::class, function($c) {
+    return new Repositories\UserRepository($c->get('db'));
 });
 
-$container->set(Cora\Domain\Petrinet\PetrinetRepository::class, function($c) {
-    return new Cora\Domain\Petrinet\PetrinetRepository($c->get('db'));
+$container->set(Repositories\PetrinetRepository::class, function($c) {
+    return new Repositories\PetrinetRepository($c->get('db'));
 });
 
-$container->set(Cora\Domain\Session\SessionRepository::class, function($c) {
-    return new Cora\Domain\Session\SessionRepository($c->get('db'));
+$container->set(Repositories\SessionRepository::class, function($c) {
+    return new Repositories\SessionRepository($c->get('db'));
 });
 
 /**************************************

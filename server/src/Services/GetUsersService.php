@@ -2,18 +2,22 @@
 
 namespace Cora\Services;
 
-use Cora\Domain\User\UserRepository as UserRepo;
-use Cora\Domain\User\View\UsersViewInterface as View;
-
+use Cora\Repositories\UserRepository;
 use Cora\Utils\Paginator;
 
 class GetUsersService {
-    public function getUsers(View &$view, UserRepo $repo, $page, $limit) {
+    private $repository;
+
+    public function __construct(UserRepository $repo) {
+        $this->repository = $repo;
+    }
+
+    public function getUsers($page, $limit) {
         $limit = min(MAX_USER_RESULT_SIZE,
                      filter_var($limit, FILTER_SANITIZE_NUMBER_INT));
         $page = filter_var($page, FILTER_SANITIZE_NUMBER_INT);
         $paginator = new Paginator($limit, $page);
-        $users = $repo->getUsers(NULL, $paginator->limit(), $paginator->offset());
-        $view->setUsers($users);
+        return $this->repository->getUsers(NULL, $paginator->limit(),
+                                           $paginator->offset());
     }
 }

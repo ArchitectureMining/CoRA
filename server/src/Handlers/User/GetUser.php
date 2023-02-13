@@ -2,35 +2,28 @@
 
 namespace Cora\Handlers\User;
 
+use Cora\Handlers\AbstractRequestHandler;
+use Cora\Repositories\UserRepository;
+
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
-use Cora\Domain\User\UserRepository as UserRepo;
-use Cora\Domain\User\Exception\UserNotFoundException;
-use Cora\Domain\User\View\UserViewFactory;
-use Cora\Handlers\AbstractRequestHandler;
-use Cora\Services\GetUserService;
-use Exception;
+use Slim\Exception\HttpBadRequestException;
+use Slim\Exception\HttpNotFoundException;
 
 class GetUser extends AbstractRequestHandler {
     public function handle(Request $request, Response $response, $args) {
-        $id = $args["id"];
+        $id = $args['id'];
         if (!isset($id))
-            throw new Exception("No id given");
-        try {
-            $mediaType = $this->getMediaType($request);
-            $view      = $this->getView($mediaType);
-            $repo      = $this->container->get(UserRepo::class);
-            $service   = $this->container->get(GetUserService::class);
-            $service->getUser($view, $repo, $id);
-            $response->getBody()->write($view->render());
-            return $response->withHeader("Content-type", $mediaType);
-        } catch (UserNotFoundException $e) {
-            return $this->fail($request, $response, $e, 404);
-        }
-    }
+            throw new HttpBadRequestException($request, 'No id given');
 
-    protected function getViewFactory(): \Cora\Views\AbstractViewFactory {
-        return new UserViewFactory();
+        $repo = $this->container->get(UserRepository::class);
+        $user = $repo->getUser('id', $id);
+
+        if (is_null($user)) throw new HttpNotFoundException(
+            $request, "No user found for this id");
+
+        $response->getBody()->write(json_encode($user));
+        return $response->withHeader('Content-Type', 'application/json');
     }
 }

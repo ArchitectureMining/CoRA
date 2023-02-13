@@ -3,7 +3,7 @@
 namespace Cora\Services;
 
 use Cora\Domain\User\Validation\UniqueUserRule;
-use Cora\Domain\User\UserRepository as UserRepo;
+use Cora\Repositories\UserRepository;
 use Cora\Domain\User\Exception\UserRegistrationException;
 use Cora\Validation\MaxLengthRule;
 use Cora\Validation\MinLengthRule;
@@ -12,15 +12,22 @@ use Cora\Validation\RuleValidator;
 use Cora\Domain\User\View\UserCreatedViewInterface as View;
 
 class RegisterUserService {
-    public function register(View &$view, UserRepo $repo, $name) {
-        $validator = $this->getValidator($repo);
-        if (!$validator->validate($name))
-            throw new UserRegistrationException($validator->getError());
-        $id = $repo->saveUser($name);
-        $view->setUserId($id);
+    protected $repository;
+
+    public function __construct(UserRepository $repo) {
+        $this->repository = $repo;
     }
 
-    protected function getValidator(UserRepo $repo) {
+    public function register($name) {
+        $validator = $this->getValidator($this->repository);
+        if (!$validator->validate($name))
+            return new RegistrationResult(false, NULL, $validator->getError());
+
+        $id = $this->repository->saveUser($name);
+        return new RegistrationResult(true, $id, NULL);
+    }
+
+    protected function getValidator(UserRepository $repo) {
         $minRule = new MinLengthRule(
             4,
             "Your username is too short. A minimum of four characters is rquired");
@@ -35,5 +42,33 @@ class RegisterUserService {
             $minRule, $maxRule, $regexRule, $uniquenessRule
         ]);
         return $validator;
+    }
+}
+
+class RegistrationResult {
+    protected $success;
+    protected $userId;
+    protected $errorMessage;
+
+    public function __construct($success, $userId, $errorMessage) {
+        $this->userId = $userId;
+        $this->errorMessage = $errorMessage;
+        $this->success = $success;
+    }
+
+    public function succeeded() {
+        return $this->success;
+    }
+
+    public function failed() {
+        return !$this->succeeded();
+    }
+
+    public function getUserId() {
+        return $this->userId;
+    }
+
+    public function getErrorMessage() {
+        return $this->errorMessage;
     }
 }
