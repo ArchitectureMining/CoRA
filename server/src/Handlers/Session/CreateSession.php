@@ -2,21 +2,12 @@
 
 namespace Cora\Handlers\Session;
 
-use Cora\Domain\Petrinet\Marking\MarkingNotFoundException;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Exception\HttpBadRequestException;
 
-use Cora\Domain\Petrinet\PetrinetNotFoundException;
-use Cora\Domain\Petrinet\PetrinetRepository as PetriRepo;
-use Cora\Domain\Session\SessionRepository as SessionRepo;
-use Cora\Domain\Session\View\SessionCreatedViewFactory;
-use Cora\Domain\User\UserRepository as UserRepo;
-use Cora\Domain\User\UserNotFoundException;
 use Cora\Handlers\AbstractRequestHandler;
-use Cora\Handlers\BadRequestException;
 use Cora\Services\StartSessionService;
-
-use Slim\HttpBadRequestException;
 
 class CreateSession extends AbstractRequestHandler {
     public function handleRequest(Request $request, Response $response, $args) {

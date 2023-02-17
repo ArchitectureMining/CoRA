@@ -4,17 +4,10 @@ namespace Cora\Handlers\Session;
 
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
-
-use Cora\Domain\User\UserRepository as UserRepo;
-use Cora\Domain\User\Exception\UserNotFoundException;
-use Cora\Domain\Session\SessionRepository as SessionRepo;
-use Cora\Domain\Session\View\CurrentSessionViewFactory;
-use Cora\Domain\Session\NoSessionException;
-use Cora\Handlers\AbstractRequestHandler;
-use Cora\Handlers\BadRequestException;
-use Cora\Services\GetSessionService;
-
 use Slim\Exception\HttpNotFoundException;
+
+use Cora\Handlers\AbstractRequestHandler;
+use Cora\Services\GetSessionService;
 
 class GetCurrentSession extends AbstractRequestHandler {
     public function handleRequest(Request $request, Response $response, $args) {

@@ -4,9 +4,10 @@ namespace Cora\Handlers\Petrinet;
 
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Exception\HttpNotFoundException;
 
 use Cora\Handlers\AbstractRequestHandler;
-use Cora\Domain\Petrinet\PetrinetNotFoundException;
+use Cora\Exception\PetrinetNotFoundException;
 use Cora\Services\GetPetrinetImageService;
 
 class GetPetrinetImage extends AbstractRequestHandler {

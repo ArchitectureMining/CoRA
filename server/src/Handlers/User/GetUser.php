@@ -2,14 +2,13 @@
 
 namespace Cora\Handlers\User;
 
-use Cora\Handlers\AbstractRequestHandler;
-use Cora\Repositories\UserRepository;
-
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
-
 use Slim\Exception\HttpBadRequestException;
 use Slim\Exception\HttpNotFoundException;
+
+use Cora\Handlers\AbstractRequestHandler;
+use Cora\Repositories\UserRepository;
 
 class GetUser extends AbstractRequestHandler {
     public function handleRequest(Request $request, Response $response, $args) {

@@ -4,7 +4,6 @@ namespace Cora\Handlers\Petrinet;
 
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
-
 use Slim\Exception\HttpNotFoundException;
 
 use Cora\Handlers\AbstractRequestHandler;

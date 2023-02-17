@@ -4,16 +4,10 @@ namespace Cora\Handlers\Petrinet;
 
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
-
-use Cora\Domain\User\UserRepository as UserRepo;
-use Cora\Domain\User\Exception\UserNotFoundException;
-use Cora\Domain\Petrinet\PetrinetRepository as PetrinetRepo;
-use Cora\Domain\Petrinet\View\PetrinetCreatedViewFactory;
-use Cora\Handlers\AbstractRequestHandler;
-use Cora\Handlers\BadRequestException;
-use Cora\Services\RegisterPetrinetService;
-
 use Slim\Exception\HttpBadRequestException;
+
+use Cora\Handlers\AbstractRequestHandler;
+use Cora\Services\RegisterPetrinetService;
 
 class RegisterPetrinet extends AbstractRequestHandler {
     public function handleRequest(Request $request, Response $response, $args) {

@@ -7,7 +7,7 @@ use Cora\Domain\Petrinet\PetrinetInterface as IPetrinet;
 use Cora\Domain\Petrinet\Marking\MarkingInterface as IMarking;
 use Cora\Repositories\PetrinetRepository;
 
-use Exception;
+use Cora\Exception\PetrinetNotFoundException;
 
 class GetPetrinetImageService {
     private $repository;

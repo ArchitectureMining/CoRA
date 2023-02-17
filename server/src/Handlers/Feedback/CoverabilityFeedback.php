@@ -4,17 +4,10 @@ namespace Cora\Handlers\Feedback;
 
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Exception\HttpBadRequestException;
 
 use Cora\Handlers\AbstractRequestHandler;
-use Cora\Handlers\BadRequestException;
-use Cora\Domain\Feedback\View\FeedbackViewFactory;
-use Cora\Domain\Petrinet\PetrinetRepository as PetrinetRepo;
-use Cora\Domain\Session\InvalidSessionException;
-use Cora\Domain\Session\NoSessionLogException;
-use Cora\Domain\Session\SessionRepository as SessionRepo;
 use Cora\Services\GetFeedbackService;
-
-use Slim\Exception\HttpBadRequestException;
 
 class CoverabilityFeedback extends AbstractRequestHandler {
     public function handleRequest(Request $request, Response $response, $args) {

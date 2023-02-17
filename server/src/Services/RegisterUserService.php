@@ -4,12 +4,10 @@ namespace Cora\Services;
 
 use Cora\Domain\User\Validation\UniqueUserRule;
 use Cora\Repositories\UserRepository;
-use Cora\Domain\User\Exception\UserRegistrationException;
 use Cora\Validation\MaxLengthRule;
 use Cora\Validation\MinLengthRule;
 use Cora\Validation\RegexRule;
 use Cora\Validation\RuleValidator;
-use Cora\Domain\User\View\UserCreatedViewInterface as View;
 
 class RegisterUserService {
     protected $repository;

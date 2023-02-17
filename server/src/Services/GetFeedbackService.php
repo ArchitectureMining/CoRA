@@ -6,7 +6,8 @@ use Cora\Converters\JsonToGraph;
 use Cora\Repositories\PetrinetRepository;
 use Cora\Repositories\SessionRepository;
 use Cora\SystemCheckers\CheckCoverabilityGraph;
-use Cora\Domain\Session\InvalidSessionException;
+
+use Cora\Exception\InvalidSessionException;
 
 class GetFeedbackService {
     private $petrinetRepository, $sessionRepository;
