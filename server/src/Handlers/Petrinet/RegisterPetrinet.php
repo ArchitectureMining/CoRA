@@ -13,38 +13,31 @@ use Cora\Handlers\AbstractRequestHandler;
 use Cora\Handlers\BadRequestException;
 use Cora\Services\RegisterPetrinetService;
 
-class RegisterPetrinet extends AbstractRequestHandler {
-    public function handle(Request $request, Response $response, $args) {
-        try {
-            $parsedBody = $request->getParsedBody();
-            if (!isset($parsedBody["user_id"]))
-                throw new BadRequestException("No user id");
-            $userId = $parsedBody["user_id"];
-            $files = $request->getUploadedFiles();
-            if (!isset($files["petrinet"]))
-                throw new BadRequestException("No Petri net uploaded");
-            $file         = $files["petrinet"];
-            $petrinetRepo = $this->container->get(PetrinetRepo::class);
-            $userRepo     = $this->container->get(UserRepo::class);
-            $mediaType    = $this->getMediaType($request);
-            $view         = $this->getView($mediaType);
-            $service      = $this->container->get(RegisterPetrinetService::class);
-            $service->register(
-                $view,
-                $userId,
-                $file,
-                $userRepo,
-                $petrinetRepo
-            );
-            $response->getBody()->write($view->render());
-            return $response->withHeader("Content-type", $mediaType)
-                            ->withStatus(201);
-        } catch (UserNotFoundException $e) {
-            return $this->fail($request, $response, $e, 404);
-        }
-    }
+use Slim\Exception\HttpBadRequestException;
 
-    protected function getViewFactory(): \Cora\Views\AbstractViewFactory {
-        return new PetrinetCreatedViewFactory();
+class RegisterPetrinet extends AbstractRequestHandler {
+    public function handleRequest(Request $request, Response $response, $args) {
+        $parsedBody = $request->getParsedBody();
+
+        $userId = $parsedBody["user_id"] ?? NULL;
+        if (is_null($userId))
+            throw new HttpBadRequestException($request, "No user id supplied");
+        $files = $request->getUploadedFiles();
+        if (!isset($files["petrinet"]))
+            throw new HttpBadRequestException($request, "No Petri net uploaded");
+        $file    = $files["petrinet"];
+
+        $service = $this->container->get(RegisterPetrinetService::class);
+        $result  = $service->register($file, $userId);
+
+        if ($result->isFailure())
+            throw new HttpBadRequestException($request, $result->getError());
+
+        $ids = ["petrinet_id" => $result->getPetrinetId(),
+                "marking_id" => $result->getMarkingId()];
+
+        $response->getBody()->write(json_encode($ids));
+        return $response->withHeader("Content-Type", "application/json")
+                        ->withStatus(201);
     }
 }

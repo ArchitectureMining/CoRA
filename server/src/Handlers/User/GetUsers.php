@@ -9,12 +9,9 @@ use Cora\Handlers\AbstractRequestHandler;
 use Cora\Services\GetUsersService;
 
 class GetUsers extends AbstractRequestHandler {
-    const DEFAULT_PAGE = 1;
-    const DEFAULT_LIMIT = MAX_USER_RESULT_SIZE;
-
-    public function handle(Request $request, Response $response, $args) {
-        $page      = $args["page"]  ?? self::DEFAULT_PAGE;
-        $limit     = $args["limit"] ?? self::DEFAULT_LIMIT;
+    public function handleRequest(Request $request, Response $response, $args) {
+        $page  = $args["page"]  ?? NULL;
+        $limit = $args["limit"] ?? NULL;
 
         $service = $this->container->get(GetUsersService::class);
         $users = $service->getUsers($page, $limit);

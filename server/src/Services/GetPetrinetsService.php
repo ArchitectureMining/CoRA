@@ -2,17 +2,24 @@
 
 namespace Cora\Services;
 
-use Cora\Domain\Petrinet\PetrinetRepository as PetriRepo;
-use Cora\Domain\Petrinet\View\PetrinetsViewInterface as View;
+use Cora\Repositories\PetrinetRepository;
 use Cora\Utils\Paginator;
 
 class GetPetrinetsService {
-    public function get(View &$view, $page, $limit, PetriRepo $repo) {
+    private $repository;
+
+    public function __construct(PetrinetRepository $repository) {
+        $this->repository = $repository;
+    }
+
+    public function get($page, $limit) {
+        $page ??= 1;
+        $limit ??= MAX_PETRINET_RESULT_SIZE;
+
         $limit = min(MAX_PETRINET_RESULT_SIZE,
                      filter_var($limit, FILTER_SANITIZE_NUMBER_INT));
         $page = max(1, filter_var($page, FILTER_SANITIZE_NUMBER_INT));
         $paginator = new Paginator($limit, $page);
-        $petrinets = $repo->getPetrinets($paginator->limit(), $paginator->offset());
-        $view->setPetrinets($petrinets);
+        return $this->repository->getPetrinets($paginator->limit(), $paginator->offset());
     }
 }

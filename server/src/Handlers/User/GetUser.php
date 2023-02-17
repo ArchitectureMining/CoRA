@@ -12,7 +12,7 @@ use Slim\Exception\HttpBadRequestException;
 use Slim\Exception\HttpNotFoundException;
 
 class GetUser extends AbstractRequestHandler {
-    public function handle(Request $request, Response $response, $args) {
+    public function handleRequest(Request $request, Response $response, $args) {
         $id = $args['id'];
         if (!isset($id))
             throw new HttpBadRequestException($request, 'No id given');

@@ -11,20 +11,14 @@ use Cora\Handlers\AbstractRequestHandler;
 use Cora\Services\GetPetrinetsService;
 
 class GetPetrinets extends AbstractRequestHandler {
-    const DEFAULT_LIMIT = MAX_PETRINET_RESULT_SIZE;
-    const DEFAULT_PAGE  = 1;
+    public function handleRequest(Request $request, Response $response, $args) {
+        $limit = $args["limit"] ?? NULL;
+        $page  = $args["page"]  ?? NULL;
+        $service = $this->container->get(GetPetrinetsService::class);
 
-    public function handle(Request $request, Response $response, $args) {
-        $repo      = $this->container->get(PetrinetRepo::class);
-        $service   = $this->container->get(GetPetrinetsService::class);
-        $limit     = $args["limit"] ?? self::DEFAULT_LIMIT;
-        $page      = $args["page"]  ?? self::DEFAULT_PAGE;
-        $mediaType = $this->getMediaType($request);
-        $view      = $this->getView($mediaType);
-        $service->get($view, $page, $limit, $repo);
-        $response->getBody()->write($view->render());
-        return $response->withHeader("Content-type", $mediaType)
-                        ->withStatus(200);
+        $petrinets = $service->get($page, $limit);
+        $response->getBody()->write(json_encode($petrinets));
+        return $response->withHeader('Content-Type', 'application/json');
     }
 
     protected function getViewFactory(): \Cora\Views\AbstractViewFactory {

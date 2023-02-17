@@ -14,36 +14,22 @@ use Cora\Handlers\AbstractRequestHandler;
 use Cora\Handlers\BadRequestException;
 use Cora\Services\GetSessionService;
 
+use Slim\Exception\HttpNotFoundException;
+
 class GetCurrentSession extends AbstractRequestHandler {
-    public function handle(Request $request, Response $response, $args) {
-        try {
-            $parsedBody = $request->getParsedBody();
-            $userId = $parsedBody["user_id"] ?? NULL;
+    public function handleRequest(Request $request, Response $response, $args) {
+        $parsedBody = $request->getParsedBody();
+        $userId = $parsedBody["user_id"] ?? NULL;
+        if (is_null($userId))
+            throw new HttpNotFoundException("No user id supplied");
 
-            if (is_null($userId))
-                throw new BadRequestException("No user id supplied");
-            $userRepo    = $this->container->get(UserRepo::class);
-            $sessionRepo = $this->container->get(SessionRepo::class);
-            $mediaType   = $this->getMediaType($request);
-            $view        = $this->getView($mediaType);
-            $service     = $this->container->get(GetSessionService::class);
-            $service->get(
-                $view,
-                $userId,
-                $sessionRepo,
-                $userRepo
-            );
-            $response->getBody()->write($view->render());
-            return $response->withHeader("Content-type", $mediaType)
-                            ->withStatus(200);
-        } catch (UserNotFoundException $e) {
-            return $this->fail($request, $response, $e, 404);
-        } catch (NoSessionException $e) {
-            return $this->fail($request, $response, $e, 400);
-        }
-    }
+        $service = $this->container->get(GetSessionService::class);
+        $result = $service->get($userId);
 
-    protected function getViewFactory(): \Cora\Views\AbstractViewFactory {
-        return new CurrentSessionViewFactory();
+        if (is_null($result))
+            throw new HttpNotFoundException("No session found");
+
+        $response->getBody()->write(json_encode($result));
+        return $response->withHeader("Content-Type", "application/json");
     }
 }

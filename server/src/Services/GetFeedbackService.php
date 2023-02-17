@@ -3,36 +3,34 @@
 namespace Cora\Services;
 
 use Cora\Converters\JsonToGraph;
-use Cora\Domain\Petrinet\PetrinetRepository as PetriRepo;
-use Cora\Domain\Session\SessionRepository as SessionRepo;
-use Cora\Domain\Feedback\View\FeedbackViewInterface as View;
+use Cora\Repositories\PetrinetRepository;
+use Cora\Repositories\SessionRepository;
 use Cora\SystemCheckers\CheckCoverabilityGraph;
-
 use Cora\Domain\Session\InvalidSessionException;
 
 class GetFeedbackService {
-    public function get(
-        View &$view,
-        $jsonGraph,
-        $userId,
-        $sessionId,
-        PetriRepo $petriRepo,
-        SessionRepo $sessionRepo
-    ) {
+    private $petrinetRepository, $sessionRepository;
+
+    public function __construct(PetrinetRepository $pr, SessionRepository $sr) {
+        $this->petrinetRepository = $pr;
+        $this->sessionRepository = $sr;
+    }
+
+    public function get($jsonGraph, $userId, $sessionId) {
         $userId     = intval(filter_var($userId, FILTER_SANITIZE_NUMBER_INT));
         $sessionId  = intval(filter_var($sessionId, FILTER_SANITIZE_NUMBER_INT));
-        if (!$sessionRepo->sessionExists($userId, $sessionId))
+        if (!$this->sessionRepository->sessionExists($userId, $sessionId))
             throw new InvalidSessionException("The session id is invalid");
-        $log        = $sessionRepo->getSessionLog($userId, $sessionId);
+        $log        = $this->sessionRepository->getSessionLog($userId, $sessionId);
         $petrinetId = $log->getPetrinetId();
         $markingId  = $log->getMarkingId();
-        $petrinet   = $petriRepo->getPetrinet($petrinetId);
+        $petrinet   = $this->petrinetRepository->getPetrinet($petrinetId);
         $converter  = new JsonToGraph($jsonGraph, $petrinet);
         $graph      = $converter->convert();
-        $marking    = $petriRepo->getMarking($markingId, $petrinet);
+        $marking    = $this->petrinetRepository->getMarking($markingId, $petrinet);
         $checker    = new CheckCoverabilityGraph($graph, $petrinet, $marking);
         $feedback   = $checker->check();
-        $sessionRepo->appendGraph($userId, $sessionId, $graph);
-        $view->setFeedback($feedback);
+        $this->sessionRepository->appendGraph($userId, $sessionId, $graph);
+        return $feedback;
     }
 }

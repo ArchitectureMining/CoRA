@@ -21,14 +21,17 @@ abstract class AbstractRequestHandler {
     }
 
     public function __invoke(Request $request, Response $response, $args) {
-        try {
-            return $this->handle($request, $response, $args);
-        } catch (BadRequestException $e) {
-            return $this->fail($request, $response, $e, 400);
-        }
+        return $this->handle($request, $response, $args);
     }
 
-    public abstract function handle(Request $req, Response $res, $args);
+    public function handle(Request $request, Response $response, $args) {
+        # negotiate and set type
+        # ...
+
+        return $this->handleRequest($request, $response, $args);
+    }
+
+    public abstract function handleRequest(Request $req, Response $res, $args);
 
     protected function getMediaType(Request $request): string {
         $supported = $this->getSupportedMediaTypes();
@@ -55,8 +58,6 @@ abstract class AbstractRequestHandler {
         $factory = $this->getViewFactory();
         return $factory->getMediaTypes();
     }
-
-    // protected abstract function getViewFactory(): AbstractViewFactory;
 
     protected function getErrorMediaType(Request $request): string {
         $supported = $this->getSupportedErrorMediaTypes();

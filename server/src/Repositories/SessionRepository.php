@@ -1,9 +1,16 @@
 <?php
 
-namespace Cora\Domain\Session;
+namespace Cora\Repositories;
 
-use Cora\Domain\Graphs\GraphInterface as IGraph;
 use Cora\Repositories\AbstractRepository;
+use Cora\Domain\Session\Session;
+use Cora\Domain\Session\SessionLog;
+use Cora\Domain\Session\MetaSessionLog;
+use Cora\Domain\Session\NoSessionException;
+use Cora\Domain\Session\NoSessionLogException;
+use Cora\Domain\Session\NoMetaLogException;
+use Cora\Domain\Session\InvalidSessionException;
+use Cora\Domain\Graphs\GraphInterface as IGraph;
 
 class SessionRepository extends AbstractRepository {
     public function getCurrentSession(int $userId): Session {

@@ -11,7 +11,7 @@ use Cora\Handlers\AbstractRequestHandler;
 use Cora\Services\RegisterUserService;
 
 class RegisterUser extends AbstractRequestHandler {
-    public function handle(Request $request, Response $response, $args) {
+    public function handleRequest(Request $request, Response $response, $args) {
         $body = $request->getParsedBody();
 
         if (!isset($body['name']))

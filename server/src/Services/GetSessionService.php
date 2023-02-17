@@ -2,22 +2,22 @@
 
 namespace Cora\Services;
 
-use Cora\Domain\Session\SessionRepository as SessionRepo;
-use Cora\Domain\User\UserRepository as UserRepo;
-use Cora\Domain\User\Exception\UserNotFoundException;
-use Cora\Domain\Session\View\CurrentSessionViewInterface as View;
+use Cora\Repositories\SessionRepository;
+use Cora\Repositories\UserRepository;
 
 class GetSessionService {
-    public function get(
-        View &$view,
-        $uid, SessionRepo
-        $sessionRepo,
-        UserRepo $userRepo)
-    {
+    private $sessionRepository, $userRepository;
+
+    public function __construct(SessionRepository $sr, UserRepository $ur) {
+        $this->sessionRepository = $sr;
+        $this->userRepository = $ur;
+    }
+
+    public function get($uid) {
         $id = filter_var($uid, FILTER_SANITIZE_NUMBER_INT);
-        if (!$userRepo->userExists("id", $uid))
-            throw new UserNotFoundException("This user does not exist");
-        $session = $sessionRepo->getCurrentSession($id);
-        $view->setSessionId($session->getId());
+        if (!$this->userRepository->userExists("id", $uid))
+            return NULL;
+        $session = $this->sessionRepository->getCurrentSession($id);
+        return $session;
     }
 }

@@ -4,31 +4,29 @@ namespace Cora\Services;
 
 use Cora\Converters\PetrinetToDot;
 use Cora\Domain\Petrinet\PetrinetInterface as IPetrinet;
-use Cora\Domain\Petrinet\PetrinetNotFoundException;
-use Cora\Domain\Petrinet\PetrinetRepository as PetriRepo;
 use Cora\Domain\Petrinet\Marking\MarkingInterface as IMarking;
-use Cora\Views\ImageViewInterface as View;
+use Cora\Repositories\PetrinetRepository;
 
 use Exception;
 
 class GetPetrinetImageService {
-    public function get(
-        View &$view,
-        int $pid,
-        ?int $mid,
-        PetriRepo $petriRepo
-    ) {
+    private $repository;
+
+    public function __construct(PetrinetRepository $repository) {
+        $this->repository = $repository;
+    }
+
+    public function get(int $pid, ?int $mid) {
         $pid = filter_var($pid, FILTER_SANITIZE_NUMBER_INT);
-        if (!$petriRepo->petrinetExists($pid))
+        if (!$this->repository->petrinetExists($pid))
             throw new PetrinetNotFoundException(
                 "A Petri net with this id does not exist");
         $mid = filter_var($mid, FILTER_SANITIZE_NUMBER_INT);
         $marking = NULL;
-        $petrinet = $petriRepo->getPetrinet($pid);
-        if ($petriRepo->markingExists($mid))
-            $marking = $petriRepo->getMarking($mid, $petrinet);
-        $image = $this->generateImage($petrinet, $marking);
-        $view->setData($image);
+        $petrinet = $this->repository->getPetrinet($pid);
+        if ($this->repository->markingExists($mid))
+            $marking = $this->repository->getMarking($mid, $petrinet);
+        return $this->generateImage($petrinet, $marking);
     }
 
     protected function generateImage(IPetrinet $petrinet, ?IMarking $marking) {

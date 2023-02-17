@@ -6,31 +6,23 @@ use Psr\Http\Message\UploadedFileInterface as File;
 
 use Cora\Converters\LolaToPetrinet;
 use Cora\Converters\PetrinetTranslator;
-use Cora\Domain\User\Exception\UserNotFoundException;
-use Cora\Domain\User\UserRepository as UserRepo;
-use Cora\Domain\Petrinet\PetrinetRepository as PetriRepo;
-use Cora\Domain\Petrinet\View\PetrinetCreatedViewInterface as View;
-use Cora\Utils\FileUploadUtils;
-
-use Exception;
+use Cora\Repositories\UserRepository;
+use Cora\Repositories\PetrinetRepository;
 
 class RegisterPetrinetService {
-    public function register(
-        View &$view,
-        $uid,
-        File $file,
-        UserRepo $userRepo,
-        PetriRepo $petriRepo
-    ) {
-        $uid = filter_var($uid, FILTER_SANITIZE_NUMBER_INT);
-        if (!$userRepo->userExists("id", $uid))
-            throw new UserNotFoundException("No user with this id exists");
-        $error = $file->getError();
-        if ($error != UPLOAD_ERR_OK)
-            throw new Exception(FileUploadUtils::getErrorMessage($error));
-        $extension = pathinfo($file->getClientFilename(), PATHINFO_EXTENSION);
-        if ($extension != "lola")
-            throw new Exception("Only files with a lola extension are accepted");
+    private $petrinetRepository;
+    private $userRepository;
+
+    public function __construct(PetrinetRepository $pr, UserRepository $ur) {
+        $this->petrinetRepository = $pr;
+        $this->userRepository = $ur;
+    }
+
+    public function register(File $file, $userId) {
+        $error = $this->validate($file, $userId);
+        if (!is_null($error))
+            return new RegistrationResult(NULL, NULL, false, $error);
+
         $lola = $file->getStream()->getContents();
         $converter = new LolaToPetrinet($lola);
         $marked = $converter->convert();
@@ -39,10 +31,56 @@ class RegisterPetrinetService {
             $translator = new PetrinetTranslator($marked);
             $marked = $translator->convert();
         }
-        $result = $petriRepo->saveMarkedPetrinet(
+        $result = $this->petrinetRepository->saveMarkedPetrinet(
             $marked->getPetrinet(),
             $marked->getMarking(),
-            $uid);
-        $view->setResult($result);
+            $userId);
+        $pid = $result->getPetrinetId();
+        $mid = $result->getMarkingId();
+        return new RegistrationResult($pid, $mid, true, '');
+    }
+
+    private function validate(File $file, $userId) {
+        if (!$this->userRepository->userExists("id", $userId))
+            return "No user with this id exists";
+
+        $error = $file->getError();
+        if ($error != UPLOAD_ERR_OK)
+            return $message = FileUploadUtils::getErrorMessage($error);
+
+        $extension = pathinfo($file->getClientFilename(), PATHINFO_EXTENSION);
+        if ($extension != "lola")
+             return "Only files with a lola extension are accepted";
+    }
+}
+
+class RegistrationResult {
+    private $petrinetId, $markingId, $success, $error;
+
+    public function __construct($petrinetId, $markingId, $success, $error) {
+        $this->petrinetId = $petrinetId;
+        $this->markingId = $markingId;
+        $this->success = $success;
+        $this->error = $error;
+    }
+
+    public function isSuccess() {
+        return $this->success;
+    }
+
+    public function isFailure() {
+        return !$this->isSuccess();
+    }
+
+    public function getError() {
+        return $this->error;
+    }
+
+    public function getPetrinetId() {
+        return $this->petrinetId;
+    }
+
+    public function getMarkingId() {
+        return $this->markingId;
     }
 }

@@ -16,6 +16,7 @@ use Cora\Domain\Petrinet\Flow\FlowMapInterface;
 use Cora\Domain\Petrinet\Marking\MarkingInterface as IMarking;
 use Cora\Domain\Petrinet\Marking\MarkingBuilder;
 use Cora\Domain\Petrinet\Marking\Tokens\IntegerTokenCount;
+use Cora\Domain\Petrinet\MarkedPetrinetRegisteredResult;
 
 use Exception;
 use PDO;
@@ -32,7 +33,10 @@ class PetrinetRepository extends AbstractRepository {
         return $petrinet;
     }
 
-    public function getMarking(int $mid, IPetrinet $p): IMarking {
+    public function getMarking(int $mid, IPetrinet $p): ?IMarking {
+        if (!$this->markingExists($mid))
+            return NULL;
+
         $query = sprintf(
             "SELECT `place`, `tokens` FROM %s WHERE marking = :mid",
             PETRINET_MARKING_PAIR_TABLE);
