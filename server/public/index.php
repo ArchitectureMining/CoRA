@@ -71,6 +71,7 @@ $app->add(new CorsMiddleware([
 *                ROUTES               *
 **************************************/
 
+// Allow an OPTIONS preflight request on all routes
 $app->options('/{routes:.+}', function($request, $response, $args) {
     return $response;
 });

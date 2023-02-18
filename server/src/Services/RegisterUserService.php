@@ -2,8 +2,8 @@
 
 namespace Cora\Services;
 
-use Cora\Domain\User\Validation\UniqueUserRule;
 use Cora\Repositories\UserRepository;
+use Cora\Domain\User\Validation\UniqueUserRule;
 use Cora\Validation\MaxLengthRule;
 use Cora\Validation\MinLengthRule;
 use Cora\Validation\RegexRule;
@@ -28,7 +28,7 @@ class RegisterUserService {
     protected function getValidator(UserRepository $repo) {
         $minRule = new MinLengthRule(
             4,
-            "Your username is too short. A minimum of four characters is rquired");
+            "Your username is too short. A minimum of four characters is required");
         $maxRule = new MaxLengthRule(
             20,
             "Your username is too long. You may use up to twenty characters");

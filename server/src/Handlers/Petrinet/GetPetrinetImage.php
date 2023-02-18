@@ -4,27 +4,28 @@ namespace Cora\Handlers\Petrinet;
 
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
-use Slim\Exception\HttpNotFoundException;
 
-use Cora\Handlers\AbstractRequestHandler;
-use Cora\Exception\PetrinetNotFoundException;
+use Cora\Handlers\AbstractHandler;
 use Cora\Services\GetPetrinetImageService;
+use Cora\Views\Factory\ViewFactory;
+use Cora\Views\Factory\PetrinetImageViewFactory;
 
-class GetPetrinetImage extends AbstractRequestHandler {
-    public function handleRequest(Request $request, Response $response, $args) {
-        try {
-            $queryParams = $request->getQueryParams();
+class GetPetrinetImage extends AbstractHandler {
+    public function handle(Request $request, Response $response, $args) {
+        $queryParams = $request->getQueryParams();
 
-            $pid     = $args["petrinet_id"];
-            $mid     = $queryParams["marking_id"] ?? NULL;
-            $service = $this->container->get(GetPetrinetImageService::class);
-            $image   = $service->get($pid, $mid);
+        $pid     = $args["petrinet_id"];
+        $mid     = $queryParams["marking_id"] ?? NULL;
+        $service = $this->container->get(GetPetrinetImageService::class);
+        $image   = $service->get($pid, $mid);
 
-            $response->getBody()->write($image);
-            return $response->withHeader("Content-Type", "image/svg+xml");
-        } catch(PetrinetNotFoundException $e) {
-            $message = "Petri net with id $pid not found";
-            throw new HttpNotFoundException($request, $message, $e);
-        }
+        $view = $this->getView();
+        $view->setData($image);
+        $response->getBody()->write($view->render());
+        return $response;
+    }
+
+    protected function getViewFactory(): ViewFactory {
+        return new PetrinetImageViewFactory();
     }
 }

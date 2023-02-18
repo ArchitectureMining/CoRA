@@ -6,11 +6,13 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Exception\HttpBadRequestException;
 
-use Cora\Handlers\AbstractRequestHandler;
+use Cora\Handlers\AbstractHandler;
 use Cora\Services\RegisterPetrinetService;
+use Cora\Views\Factory\ViewFactory;
+use Cora\Views\Factory\PetrinetCreatedViewFactory;
 
-class RegisterPetrinet extends AbstractRequestHandler {
-    public function handleRequest(Request $request, Response $response, $args) {
+class RegisterPetrinet extends AbstractHandler {
+    public function handle(Request $request, Response $response, $args) {
         $parsedBody = $request->getParsedBody();
 
         $userId = $parsedBody["user_id"] ?? NULL;
@@ -27,11 +29,13 @@ class RegisterPetrinet extends AbstractRequestHandler {
         if ($result->isFailure())
             throw new HttpBadRequestException($request, $result->getError());
 
-        $ids = ["petrinet_id" => $result->getPetrinetId(),
-                "marking_id" => $result->getMarkingId()];
+        $view = $this->getView();
+        $view->setResult($result);
+        $response->getBody()->write($view->render());
+        return $response->withStatus(201);
+    }
 
-        $response->getBody()->write(json_encode($ids));
-        return $response->withHeader("Content-Type", "application/json")
-                        ->withStatus(201);
+    protected function getViewFactory(): ViewFactory {
+        return new PetrinetCreatedViewFactory();
     }
 }

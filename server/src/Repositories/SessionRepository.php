@@ -3,11 +3,12 @@
 namespace Cora\Repositories;
 
 use Cora\Repositories\AbstractRepository;
+
 use Cora\Domain\Session\Session;
 use Cora\Domain\Session\SessionLog;
+use Cora\Domain\Session\MetaSessionLog;
 use Cora\Domain\Graphs\GraphInterface as IGraph;
 
-use Cora\Exception\MetaSessionLog;
 use Cora\Exception\NoSessionException;
 use Cora\Exception\NoSessionLogException;
 use Cora\Exception\NoMetaLogException;

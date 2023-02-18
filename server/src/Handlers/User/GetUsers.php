@@ -5,18 +5,25 @@ namespace Cora\Handlers\User;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
-use Cora\Handlers\AbstractRequestHandler;
+use Cora\Handlers\AbstractHandler;
 use Cora\Services\GetUsersService;
+use Cora\Views\Factory\ViewFactory;
+use Cora\Views\Factory\UsersViewFactory;
 
-class GetUsers extends AbstractRequestHandler {
-    public function handleRequest(Request $request, Response $response, $args) {
+class GetUsers extends AbstractHandler {
+    public function handle(Request $request, Response $response, $args) {
         $page  = $args["page"]  ?? NULL;
         $limit = $args["limit"] ?? NULL;
 
         $service = $this->container->get(GetUsersService::class);
         $users = $service->getUsers($page, $limit);
 
-        $response->getBody()->write(json_encode($users));
-        return $response->withHeader('Content-Type', 'application/json');
+        $view = $this->getView();
+        $view->setUsers($users);
+        $response->getBody()->write($view->render());
+    }
+
+    protected function getViewFactory(): ViewFactory {
+        return new UsersViewFactory();
     }
 }

@@ -20,11 +20,10 @@ class GetPetrinetService {
 
         if (is_null($petrinet))
             return NULL;
-
-        if (is_null($mid))
-            $marking = $this->getEmptyMarking($petrinet);
-        else
+        if (!is_null($mid))
             $marking = $this->repository->getMarking($mid, $petrinet);
+        if (is_null($mid) || is_null($marking))
+            $marking = $this->getEmptyMarking($petrinet);
 
         return new MarkedPetrinet($petrinet, $marking);
     }

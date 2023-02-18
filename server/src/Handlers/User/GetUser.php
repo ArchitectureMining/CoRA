@@ -7,22 +7,30 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Exception\HttpBadRequestException;
 use Slim\Exception\HttpNotFoundException;
 
-use Cora\Handlers\AbstractRequestHandler;
-use Cora\Repositories\UserRepository;
+use Cora\Handlers\AbstractHandler;
+use Cora\Services\GetUserService;
+use Cora\Views\Factory\ViewFactory;
+use Cora\Views\Factory\UserViewFactory;
 
-class GetUser extends AbstractRequestHandler {
-    public function handleRequest(Request $request, Response $response, $args) {
+class GetUser extends AbstractHandler {
+    public function handle(Request $request, Response $response, $args) {
         $id = $args['id'];
         if (!isset($id))
             throw new HttpBadRequestException($request, 'No id given');
 
-        $repo = $this->container->get(UserRepository::class);
-        $user = $repo->getUser('id', $id);
+        $service = $this->container->get(GetUserService::class);
+        $user = $service->getUser($id);
 
         if (is_null($user)) throw new HttpNotFoundException(
             $request, "No user found for this id");
 
-        $response->getBody()->write(json_encode($user));
-        return $response->withHeader('Content-Type', 'application/json');
+        $view = $this->getView();
+        $view->setUser($user);
+        $response->getBody()->write($view->render());
+        return $response;
+    }
+
+    protected function getViewFactory(): ViewFactory {
+        return new UserViewFactory();
     }
 }

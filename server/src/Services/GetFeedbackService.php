@@ -18,10 +18,12 @@ class GetFeedbackService {
     }
 
     public function get($jsonGraph, $userId, $sessionId) {
-        $userId     = intval(filter_var($userId, FILTER_SANITIZE_NUMBER_INT));
-        $sessionId  = intval(filter_var($sessionId, FILTER_SANITIZE_NUMBER_INT));
+        $userId    = intval(filter_var($userId, FILTER_SANITIZE_NUMBER_INT));
+        $sessionId = intval(filter_var($sessionId, FILTER_SANITIZE_NUMBER_INT));
+
         if (!$this->sessionRepository->sessionExists($userId, $sessionId))
             throw new InvalidSessionException("The session id is invalid");
+
         $log        = $this->sessionRepository->getSessionLog($userId, $sessionId);
         $petrinetId = $log->getPetrinetId();
         $markingId  = $log->getMarkingId();
