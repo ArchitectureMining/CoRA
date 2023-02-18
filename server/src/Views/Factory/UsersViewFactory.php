@@ -2,12 +2,12 @@
 
 namespace Cora\Views\Factory;
 
-use Cora\Views\JsonUsersView;
+use Cora\Views\Json;
 
 class UsersViewFactory extends AbstractViewFactory {
     protected function getMediaAssociations(): array {
         return [
-            "application/json" => JsonUsersView::class
+            "application/json" => Json\UsersView::class
         ];
     }
 }

@@ -1,8 +1,10 @@
 <?php
 
-namespace Cora\Views;
+namespace Cora\Views\Svg;
 
-class SvgImageView implements ImageViewInterface {
+use Cora\Views\PetrinetImageViewInterface;
+
+class PetrinetImageView implements PetrinetImageViewInterface {
     private $data;
 
     public function getData(): string {

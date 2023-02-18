@@ -2,12 +2,12 @@
 
 namespace Cora\Views\Factory;
 
-use Cora\Views\SvgImageView;
+use Cora\Views\Svg;
 
 class PetrinetImageViewFactory extends AbstractViewFactory {
     protected function getMediaAssociations(): array {
         return [
-            "image/svg+xml" => SvgImageView::class
+            "image/svg+xml" => Svg\PetrinetImageView::class
         ];
     }
 }

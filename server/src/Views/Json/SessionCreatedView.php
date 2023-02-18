@@ -1,10 +1,11 @@
 <?php
 
-namespace Cora\Views;
+namespace Cora\Views\Json;
 
+use Cora\Views\SessionCreatedViewInterface;
 use Cora\Domain\Session\Session;
 
-class JsonSessionCreatedView implements SessionCreatedViewInterface {
+class SessionCreatedView implements SessionCreatedViewInterface {
     protected $session;
 
     public function getSession(): Session {

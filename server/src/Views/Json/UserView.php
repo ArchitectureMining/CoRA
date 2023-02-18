@@ -1,11 +1,11 @@
 <?php
 
-namespace Cora\Views;
+namespace Cora\Views\Json;
 
-use Cora\Views\UserViewInterface as IUserView;
+use Cora\Views\UserViewInterface;
 use Cora\Domain\User\User;
 
-class JsonUserView implements IUserView {
+class UserView implements UserViewInterface {
     protected $user;
 
     public function getUser(): User {

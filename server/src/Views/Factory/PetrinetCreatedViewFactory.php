@@ -2,12 +2,12 @@
 
 namespace Cora\Views\Factory;
 
-use Cora\Views\JsonPetrinetCreatedView;
+use Cora\Views\Json;
 
 class PetrinetCreatedViewFactory extends AbstractViewFactory {
     protected function getMediaAssociations(): array {
         return [
-            "application/json" => JsonPetrinetCreatedView::class
+            "application/json" => Json\PetrinetCreatedView::class
         ];
     }
 }

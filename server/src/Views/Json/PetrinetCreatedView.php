@@ -1,8 +1,10 @@
 <?php
 
-namespace Cora\Views;
+namespace Cora\Views\Json;
 
-class JsonPetrinetCreatedView implements PetrinetCreatedViewInterface {
+use Cora\Views\PetrinetCreatedViewInterface;
+
+class PetrinetCreatedView implements PetrinetCreatedViewInterface {
     protected $result;
 
     public function setResult($result) {

@@ -1,10 +1,12 @@
 <?php
 
-namespace Cora\Views;
+namespace Cora\Views\Json;
 
+
+use Cora\Views\CurrentSessionViewInterface;
 use Cora\Domain\Session\Session;
 
-class JsonCurrentSessionView implements CurrentSessionViewInterface {
+class CurrentSessionView implements CurrentSessionViewInterface {
     protected $session;
 
     public function getSession(): Session {

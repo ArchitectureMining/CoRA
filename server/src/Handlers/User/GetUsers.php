@@ -21,6 +21,7 @@ class GetUsers extends AbstractHandler {
         $view = $this->getView();
         $view->setUsers($users);
         $response->getBody()->write($view->render());
+        return $response;
     }
 
     protected function getViewFactory(): ViewFactory {
