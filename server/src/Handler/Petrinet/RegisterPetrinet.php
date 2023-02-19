@@ -8,8 +8,8 @@ use Slim\Exception\HttpBadRequestException;
 
 use Cora\Handler\AbstractHandler;
 use Cora\Service\RegisterPetrinetService;
-use Cora\Views\Factory\ViewFactory;
-use Cora\Views\Factory\PetrinetCreatedViewFactory;
+use Cora\View\Factory\ViewFactory;
+use Cora\View\Factory\PetrinetCreatedViewFactory;
 
 class RegisterPetrinet extends AbstractHandler {
     public function handle(Request $request, Response $response, $args) {

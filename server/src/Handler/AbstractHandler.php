@@ -7,8 +7,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Container\ContainerInterface as Container;
 use Negotiation\Negotiator;
 
-use Cora\Views\Factory\ViewFactory;
-use Cora\Views\Factory\ErrorViewFactory;
+use Cora\View\Factory\ViewFactory;
+use Cora\View\Factory\ErrorViewFactory;
 use Cora\Exception\HttpNotAcceptableException;
 
 abstract class AbstractHandler {

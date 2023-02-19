@@ -7,8 +7,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 use Cora\Handler\AbstractHandler;
 use Cora\Service\GetPetrinetsService;
-use Cora\Views\Factory\ViewFactory;
-use Cora\Views\Factory\PetrinetsViewFactory;
+use Cora\View\Factory\ViewFactory;
+use Cora\View\Factory\PetrinetsViewFactory;
 
 class GetPetrinets extends AbstractHandler {
     public function handle(Request $request, Response $response, $args) {

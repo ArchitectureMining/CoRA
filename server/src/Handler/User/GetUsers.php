@@ -7,8 +7,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 use Cora\Handler\AbstractHandler;
 use Cora\Service\GetUsersService;
-use Cora\Views\Factory\ViewFactory;
-use Cora\Views\Factory\UsersViewFactory;
+use Cora\View\Factory\ViewFactory;
+use Cora\View\Factory\UsersViewFactory;
 
 class GetUsers extends AbstractHandler {
     public function handle(Request $request, Response $response, $args) {

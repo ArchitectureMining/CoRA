@@ -8,8 +8,8 @@ use Slim\Exception\HttpBadRequestException;
 
 use Cora\Handler\AbstractHandler;
 use Cora\Service\RegisterUserService;
-use Cora\Views\Factory\ViewFactory;
-use Cora\Views\Factory\UserCreatedViewFactory;
+use Cora\View\Factory\ViewFactory;
+use Cora\View\Factory\UserCreatedViewFactory;
 
 class RegisterUser extends AbstractHandler {
     public function handle(Request $request, Response $response, $args) {

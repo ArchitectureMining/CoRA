@@ -8,8 +8,8 @@ use Slim\Exception\HttpNotFoundException;
 
 use Cora\Handler\AbstractHandler;
 use Cora\Service\GetSessionService;
-use Cora\Views\Factory\ViewFactory;
-use Cora\Views\Factory\CurrentSessionViewFactory;
+use Cora\View\Factory\ViewFactory;
+use Cora\View\Factory\CurrentSessionViewFactory;
 
 class GetCurrentSession extends AbstractHandler {
     public function handle(Request $request, Response $response, $args) {

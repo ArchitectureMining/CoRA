@@ -9,8 +9,8 @@ use Slim\Exception\HttpNotFoundException;
 
 use Cora\Handler\AbstractHandler;
 use Cora\Service\GetUserService;
-use Cora\Views\Factory\ViewFactory;
-use Cora\Views\Factory\UserViewFactory;
+use Cora\View\Factory\ViewFactory;
+use Cora\View\Factory\UserViewFactory;
 
 class GetUser extends AbstractHandler {
     public function handle(Request $request, Response $response, $args) {

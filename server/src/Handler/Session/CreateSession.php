@@ -8,8 +8,8 @@ use Slim\Exception\HttpBadRequestException;
 
 use Cora\Handler\AbstractHandler;
 use Cora\Service\StartSessionService;
-use Cora\Views\Factory\ViewFactory;
-use Cora\Views\Factory\SessionCreatedViewFactory;
+use Cora\View\Factory\ViewFactory;
+use Cora\View\Factory\SessionCreatedViewFactory;
 
 class CreateSession extends AbstractHandler {
     public function handle(Request $request, Response $response, $args) {

@@ -7,8 +7,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 use Cora\Handler\AbstractHandler;
 use Cora\Service\GetPetrinetImageService;
-use Cora\Views\Factory\ViewFactory;
-use Cora\Views\Factory\PetrinetImageViewFactory;
+use Cora\View\Factory\ViewFactory;
+use Cora\View\Factory\PetrinetImageViewFactory;
 
 class GetPetrinetImage extends AbstractHandler {
     public function handle(Request $request, Response $response, $args) {

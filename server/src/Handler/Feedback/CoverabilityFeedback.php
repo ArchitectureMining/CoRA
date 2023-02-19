@@ -8,8 +8,8 @@ use Slim\Exception\HttpBadRequestException;
 
 use Cora\Handler\AbstractHandler;
 use Cora\Service\GetFeedbackService;
-use Cora\Views\Factory\ViewFactory;
-use Cora\Views\Factory\FeedbackViewFactory;
+use Cora\View\Factory\ViewFactory;
+use Cora\View\Factory\FeedbackViewFactory;
 
 class CoverabilityFeedback extends AbstractHandler {
     public function handle(Request $request, Response $response, $args) {
