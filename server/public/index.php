@@ -9,7 +9,7 @@ use DI\Container;
 use Tuupola\Middleware\CorsMiddleware;
 
 use Cora\Repositories;
-use Cora\Handlers;
+use Cora\Handler;
 use Cora\Utils;
 
 /** load the classes via composer **/
@@ -86,13 +86,13 @@ $app->group('/' . API_GROUP, function($api_group) {
     $api_group->group('/' . USER_GROUP, function($user_group) {
         // get all users
         $user_group->get(
-            '/{id:[0-9]+}', Handlers\User\GetUser::class
+            '/{id:[0-9]+}', Handler\User\GetUser::class
         )->setName('getUser');
         $user_group->get(
-            '/[{limit:[0-9]+}/{page:[0-9]+}]', Handlers\User\GetUsers::class
+            '/[{limit:[0-9]+}/{page:[0-9]+}]', Handler\User\GetUsers::class
         )->setName('getUsers');
         $user_group->post(
-            '/new', Handlers\User\RegisterUser::class
+            '/new', Handler\User\RegisterUser::class
         )->setName("setUser");
     });
     /**
@@ -100,20 +100,20 @@ $app->group('/' . API_GROUP, function($api_group) {
      */
     $api_group->group('/' . PETRINET_GROUP, function($petri_group) {
         $petri_group->get(
-            '/{petrinet_id:[0-9]+}', Handlers\Petrinet\GetPetrinet::class
+            '/{petrinet_id:[0-9]+}', Handler\Petrinet\GetPetrinet::class
         )->setName("getPetrinet");
         $petri_group->get(
-            '/[{limit:[0-9]+}/{page:[0-9]+}]', Handlers\Petrinet\GetPetrinets::class
+            '/[{limit:[0-9]+}/{page:[0-9]+}]', Handler\Petrinet\GetPetrinets::class
         )->setName("getPetrinets");
         $petri_group->get(
-            '/{petrinet_id:[0-9]+}/image', Handlers\Petrinet\GetPetrinetImage::class
+            '/{petrinet_id:[0-9]+}/image', Handler\Petrinet\GetPetrinetImage::class
         )->setName('getPetrinetImage');
         $petri_group->post(
-            '/new', Handlers\Petrinet\RegisterPetrinet::class
+            '/new', Handler\Petrinet\RegisterPetrinet::class
         )->setName("setPetrinet");
         $petri_group->post(
             '/feedback',
-            Handlers\Feedback\CoverabilityFeedback::class
+            Handler\Feedback\CoverabilityFeedback::class
         )->setName("getFeedback");
     });
     /**
@@ -121,10 +121,10 @@ $app->group('/' . API_GROUP, function($api_group) {
      */
     $api_group->group('/' . SESSION_GROUP, function($session_group) {
         $session_group->post(
-            '/current', Handlers\Session\GetCurrentSession::class
+            '/current', Handler\Session\GetCurrentSession::class
         )->setName("getCurrentSession");
         $session_group->post(
-            '/new', Handlers\Session\CreateSession::class
+            '/new', Handler\Session\CreateSession::class
         )->setName("newSession");
     });
 });

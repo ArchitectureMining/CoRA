@@ -1,11 +1,11 @@
 <?php
 
-namespace Cora\Handlers\Petrinet;
+namespace Cora\Handler\Petrinet;
 
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
-use Cora\Handlers\AbstractHandler;
+use Cora\Handler\AbstractHandler;
 use Cora\Service\GetPetrinetImageService;
 use Cora\Views\Factory\ViewFactory;
 use Cora\Views\Factory\PetrinetImageViewFactory;

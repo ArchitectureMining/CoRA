@@ -1,31 +1,30 @@
 <?php
 
-namespace Cora\Handlers\Petrinet;
+namespace Cora\Handler\User;
 
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
-use Cora\Handlers\AbstractHandler;
-use Cora\Service\GetPetrinetsService;
+use Cora\Handler\AbstractHandler;
+use Cora\Service\GetUsersService;
 use Cora\Views\Factory\ViewFactory;
-use Cora\Views\Factory\PetrinetsViewFactory;
+use Cora\Views\Factory\UsersViewFactory;
 
-class GetPetrinets extends AbstractHandler {
+class GetUsers extends AbstractHandler {
     public function handle(Request $request, Response $response, $args) {
-        $limit = $args["limit"] ?? NULL;
         $page  = $args["page"]  ?? NULL;
-        $service = $this->container->get(GetPetrinetsService::class);
+        $limit = $args["limit"] ?? NULL;
 
-        $petrinets = $service->get($page, $limit);
+        $service = $this->container->get(GetUsersService::class);
+        $users = $service->getUsers($page, $limit);
 
         $view = $this->getView();
-        $view->setPetrinets($petrinets);
-
+        $view->setUsers($users);
         $response->getBody()->write($view->render());
         return $response;
     }
 
     protected function getViewFactory(): ViewFactory {
-        return new PetrinetsViewFactory;
+        return new UsersViewFactory();
     }
 }

@@ -1,12 +1,12 @@
 <?php
 
-namespace Cora\Handlers\Session;
+namespace Cora\Handler\Session;
 
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Exception\HttpNotFoundException;
 
-use Cora\Handlers\AbstractHandler;
+use Cora\Handler\AbstractHandler;
 use Cora\Service\GetSessionService;
 use Cora\Views\Factory\ViewFactory;
 use Cora\Views\Factory\CurrentSessionViewFactory;
