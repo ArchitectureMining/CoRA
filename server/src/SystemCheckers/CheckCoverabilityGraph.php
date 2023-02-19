@@ -3,7 +3,7 @@
 namespace Cora\SystemCheckers;
 
 use Cora\Domain\Feedback\Feedback;
-use Cora\Domain\Graphs\GraphInterface as IGraph;
+use Cora\Domain\Graph\GraphInterface as IGraph;
 use Cora\Domain\Petrinet\PetrinetInterface as IPetrinet;
 use Cora\Domain\Petrinet\Transition\Transition;
 use Cora\Domain\Petrinet\Marking\MarkingInterface as IMarking;

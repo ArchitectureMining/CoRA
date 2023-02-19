@@ -1,9 +1,9 @@
 <?php
 
-namespace Cora\Domain\Graphs;
+namespace Cora\Domain\Graph;
 
-use Cora\Domain\Graphs\EdgeInterface as Edge;
-use Cora\Domain\Graphs\GraphInterface as Graph;
+use Cora\Domain\Graph\EdgeInterface as Edge;
+use Cora\Domain\Graph\GraphInterface as Graph;
 
 interface GraphBuilderInterface {
     public function addVertex(int $id, $vertex): void;

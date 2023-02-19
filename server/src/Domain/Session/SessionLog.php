@@ -2,7 +2,7 @@
 
 namespace Cora\Domain\Session;
 
-use Cora\Domain\Graphs\GraphInterface as IGraph;
+use Cora\Domain\Graph\GraphInterface as IGraph;
 
 use JsonSerializable;
 

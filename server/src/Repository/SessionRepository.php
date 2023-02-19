@@ -5,7 +5,7 @@ namespace Cora\Repository;
 use Cora\Domain\Session\Session;
 use Cora\Domain\Session\SessionLog;
 use Cora\Domain\Session\MetaSessionLog;
-use Cora\Domain\Graphs\GraphInterface as IGraph;
+use Cora\Domain\Graph\GraphInterface as IGraph;
 
 use Cora\Exception\NoSessionException;
 use Cora\Exception\NoSessionLogException;

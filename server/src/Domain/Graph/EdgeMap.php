@@ -1,8 +1,8 @@
 <?php
 
-namespace Cora\Domain\Graphs;
+namespace Cora\Domain\Graph;
 
-use Cora\Domain\Graphs\EdgeInterface as Edge;
+use Cora\Domain\Graph\EdgeInterface as Edge;
 
 use Ds\Map;
 use Ds\Set;

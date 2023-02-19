@@ -2,9 +2,9 @@
 
 namespace Cora\Converters;
 
-use Cora\Domain\Graphs\Edge;
-use Cora\Domain\Graphs\GraphBuilder;
-use Cora\Domain\Graphs\GraphBuilderInterface as IGraphBuilder;
+use Cora\Domain\Graph\Edge;
+use Cora\Domain\Graph\GraphBuilder;
+use Cora\Domain\Graph\GraphBuilderInterface as IGraphBuilder;
 
 use Cora\Domain\Petrinet\PetrinetInterface as Petrinet;
 use Cora\Domain\Petrinet\Place\Place;

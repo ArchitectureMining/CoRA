@@ -1,11 +1,11 @@
 <?php
 
-namespace Cora\Domain\Graphs;
+namespace Cora\Domain\Graph;
 
-use Cora\Domain\Graphs\VertexMapInterface as IVertexMap;
-use Cora\Domain\Graphs\EdgeMapInterface as IEdgeMap;
-use Cora\Domain\Graphs\EdgeInterface as Edge;
-use Cora\Domain\Graphs\EdgeMap;
+use Cora\Domain\Graph\VertexMapInterface as IVertexMap;
+use Cora\Domain\Graph\EdgeMapInterface as IEdgeMap;
+use Cora\Domain\Graph\EdgeInterface as Edge;
+use Cora\Domain\Graph\EdgeMap;
 
 use Exception;
 

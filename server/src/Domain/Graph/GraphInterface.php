@@ -1,10 +1,10 @@
 <?php
 
-namespace Cora\Domain\Graphs;
+namespace Cora\Domain\Graph;
 
-use Cora\Domain\Graphs\EdgeInterface as Edge;
-use Cora\Domain\Graphs\EdgeMapInterface as EdgeMap;
-use Cora\Domain\Graphs\VertexMapInterface as VertexMap;
+use Cora\Domain\Graph\EdgeInterface as Edge;
+use Cora\Domain\Graph\EdgeMapInterface as EdgeMap;
+use Cora\Domain\Graph\VertexMapInterface as VertexMap;
 
 use JsonSerializable;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Cora\Domain\Graphs;
+namespace Cora\Domain\Graph;
 
 class Edge implements EdgeInterface {
     protected $from;

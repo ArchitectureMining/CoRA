@@ -1,6 +1,6 @@
 <?php
 
-namespace Cora\Domain\Graphs;
+namespace Cora\Domain\Graph;
 
 use Ds\Map;
 use Ds\Set;
