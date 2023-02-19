@@ -6,8 +6,7 @@ EXPOSE 80
 RUN a2enmod rewrite
 RUN service apache2 restart
 
-
-# Install php extensions
+# Install dependencies and php extensions
 RUN apt-get update && apt-get install -y \
     zlib1g-dev \
     libzip-dev \
