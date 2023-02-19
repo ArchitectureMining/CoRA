@@ -1,6 +1,6 @@
 <?php
 
-namespace Cora\Converters;
+namespace Cora\Converter;
 
 use Cora\Domain\Petrinet\PetrinetBuilder;
 use Cora\Domain\Petrinet\Place\Place;

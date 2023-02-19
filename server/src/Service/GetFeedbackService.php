@@ -2,7 +2,7 @@
 
 namespace Cora\Service;
 
-use Cora\Converters\JsonToGraph;
+use Cora\Converter\JsonToGraph;
 use Cora\Repository\PetrinetRepository;
 use Cora\Repository\SessionRepository;
 use Cora\SystemCheckers\CheckCoverabilityGraph;

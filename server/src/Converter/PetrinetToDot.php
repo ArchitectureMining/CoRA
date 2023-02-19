@@ -1,6 +1,6 @@
 <?php
 
-namespace Cora\Converters;
+namespace Cora\Converter;
 
 use Cora\Domain\Petrinet\PetrinetInterface as Petrinet;
 use Cora\Domain\Petrinet\Marking\MarkingInterface as Marking;

@@ -2,7 +2,7 @@
 
 namespace Cora\Service;
 
-use Cora\Converters\PetrinetToDot;
+use Cora\Converter\PetrinetToDot;
 use Cora\Domain\Petrinet\PetrinetInterface as IPetrinet;
 use Cora\Domain\Petrinet\Marking\MarkingInterface as IMarking;
 use Cora\Repository\PetrinetRepository;

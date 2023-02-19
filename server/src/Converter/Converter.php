@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Cora\Converters;
+namespace Cora\Converter;
 
 abstract class Converter
 {

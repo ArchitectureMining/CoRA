@@ -4,8 +4,8 @@ namespace Cora\Service;
 
 use Psr\Http\Message\UploadedFileInterface as File;
 
-use Cora\Converters\LolaToPetrinet;
-use Cora\Converters\PetrinetTranslator;
+use Cora\Converter\LolaToPetrinet;
+use Cora\Converter\PetrinetTranslator;
 use Cora\Repository\UserRepository;
 use Cora\Repository\PetrinetRepository;
 

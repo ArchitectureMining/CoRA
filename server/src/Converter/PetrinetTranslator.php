@@ -1,6 +1,6 @@
 <?php
 
-namespace Cora\Converters;
+namespace Cora\Converter;
 
 use Cora\Domain\Petrinet\PetrinetBuilder;
 use Cora\Domain\Petrinet\MarkedPetrinetInterface as IMarkedPetrinet;
@@ -20,7 +20,7 @@ class PetrinetTranslator extends Converter {
 
     protected $placeTranslations;
     protected $transitionTranslations;
-    
+
     public function __construct(IMarkedPetrinet $net) {
         $this->markedPetrinet = $net;
         $this->petrinetBuilder = new PetrinetBuilder();
@@ -57,7 +57,7 @@ class PetrinetTranslator extends Converter {
             $this->transitionTranslations->put($trans, $newTransition);
             $this->petrinetBuilder->addTransition($newTransition);
         }
-    } 
+    }
 
     protected function translateFlows() {
         $flows = $this->markedPetrinet->getPetrinet()->getFlows();
@@ -70,7 +70,7 @@ class PetrinetTranslator extends Converter {
                 $newFlow = new Flow($this->placeTranslations->get($from),
                                     $this->transitionTranslations->get($to));
             elseif ($this->transitionTranslations->hasKey($from) &&
-                    $this->placeTranslations->hasKey($to)) 
+                    $this->placeTranslations->hasKey($to))
                 $newFlow = new Flow($this->transitionTranslations->get($from),
                                     $this->placeTranslations->get($to));
             else
@@ -85,6 +85,6 @@ class PetrinetTranslator extends Converter {
         foreach($marking as $place => $tokens) {
             $newPlace = $this->placeTranslations->get($place);
             $this->markingBuilder->assign($newPlace, $tokens);
-        } 
+        }
     }
 }

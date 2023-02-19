@@ -1,6 +1,6 @@
 <?php
 
-namespace Cora\Converters;
+namespace Cora\Converter;
 
 use Cora\Domain\Graph\Edge;
 use Cora\Domain\Graph\GraphBuilder;
