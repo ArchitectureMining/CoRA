@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install -y \
 RUN docker-php-ext-install zip pdo pdo_mysql
 
 # Set php settings
-RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
 WORKDIR /var/www/html
 
@@ -32,4 +32,4 @@ RUN composer install
 COPY --chown=www-data:www-data . .
 
 # Generate classmap
-RUN composer dumpautoload
+RUN composer dumpautoload -a
