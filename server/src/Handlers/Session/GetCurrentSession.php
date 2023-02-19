@@ -7,7 +7,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Exception\HttpNotFoundException;
 
 use Cora\Handlers\AbstractHandler;
-use Cora\Services\GetSessionService;
+use Cora\Service\GetSessionService;
 use Cora\Views\Factory\ViewFactory;
 use Cora\Views\Factory\CurrentSessionViewFactory;
 

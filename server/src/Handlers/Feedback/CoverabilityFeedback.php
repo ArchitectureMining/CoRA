@@ -7,7 +7,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Exception\HttpBadRequestException;
 
 use Cora\Handlers\AbstractHandler;
-use Cora\Services\GetFeedbackService;
+use Cora\Service\GetFeedbackService;
 use Cora\Views\Factory\ViewFactory;
 use Cora\Views\Factory\FeedbackViewFactory;
 

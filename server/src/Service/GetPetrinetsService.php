@@ -1,6 +1,6 @@
 <?php
 
-namespace Cora\Services;
+namespace Cora\Service;
 
 use Cora\Repositories\PetrinetRepository;
 use Cora\Utils\Paginator;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Cora\Services;
+namespace Cora\Service;
 
 use Cora\Repositories\SessionRepository as SessionRepo;
 use Cora\Repositories\PetrinetRepository as PetriRepo;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Cora\Services;
+namespace Cora\Service;
 
 use Psr\Http\Message\UploadedFileInterface as File;
 

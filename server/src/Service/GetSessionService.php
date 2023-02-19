@@ -1,6 +1,6 @@
 <?php
 
-namespace Cora\Services;
+namespace Cora\Service;
 
 use Cora\Repositories\SessionRepository;
 use Cora\Repositories\UserRepository;

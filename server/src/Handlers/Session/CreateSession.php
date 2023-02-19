@@ -7,7 +7,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Exception\HttpBadRequestException;
 
 use Cora\Handlers\AbstractHandler;
-use Cora\Services\StartSessionService;
+use Cora\Service\StartSessionService;
 use Cora\Views\Factory\ViewFactory;
 use Cora\Views\Factory\SessionCreatedViewFactory;
 

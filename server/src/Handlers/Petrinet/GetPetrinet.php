@@ -7,7 +7,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Exception\HttpNotFoundException;
 
 use Cora\Handlers\AbstractHandler;
-use Cora\Services\GetPetrinetService;
+use Cora\Service\GetPetrinetService;
 use Cora\Views\Factory\ViewFactory;
 use Cora\Views\Factory\PetrinetViewFactory;
 

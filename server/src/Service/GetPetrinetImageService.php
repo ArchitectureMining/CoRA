@@ -1,6 +1,6 @@
 <?php
 
-namespace Cora\Services;
+namespace Cora\Service;
 
 use Cora\Converters\PetrinetToDot;
 use Cora\Domain\Petrinet\PetrinetInterface as IPetrinet;

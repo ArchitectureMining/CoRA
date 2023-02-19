@@ -1,6 +1,6 @@
 <?php
 
-namespace Cora\Services;
+namespace Cora\Service;
 
 use Cora\Domain\Petrinet\Marking\MarkingBuilder;
 use Cora\Domain\Petrinet\MarkedPetrinet;

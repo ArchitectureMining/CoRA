@@ -6,7 +6,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
 use Cora\Handlers\AbstractHandler;
-use Cora\Services\GetUsersService;
+use Cora\Service\GetUsersService;
 use Cora\Views\Factory\ViewFactory;
 use Cora\Views\Factory\UsersViewFactory;
 

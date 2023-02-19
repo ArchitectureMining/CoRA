@@ -8,7 +8,7 @@ use Slim\Exception\HttpBadRequestException;
 use Slim\Exception\HttpNotFoundException;
 
 use Cora\Handlers\AbstractHandler;
-use Cora\Services\GetUserService;
+use Cora\Service\GetUserService;
 use Cora\Views\Factory\ViewFactory;
 use Cora\Views\Factory\UserViewFactory;
 
