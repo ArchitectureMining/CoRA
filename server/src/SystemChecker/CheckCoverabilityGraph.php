@@ -1,6 +1,6 @@
 <?php
 
-namespace Cora\SystemCheckers;
+namespace Cora\SystemChecker;
 
 use Cora\Domain\Feedback\Feedback;
 use Cora\Domain\Graph\GraphInterface as IGraph;
