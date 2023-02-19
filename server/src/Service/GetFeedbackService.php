@@ -3,8 +3,8 @@
 namespace Cora\Service;
 
 use Cora\Converters\JsonToGraph;
-use Cora\Repositories\PetrinetRepository;
-use Cora\Repositories\SessionRepository;
+use Cora\Repository\PetrinetRepository;
+use Cora\Repository\SessionRepository;
 use Cora\SystemCheckers\CheckCoverabilityGraph;
 
 use Cora\Exception\InvalidSessionException;

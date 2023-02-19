@@ -3,7 +3,7 @@
 namespace Cora\Domain\User\Validation;
 
 use Cora\Validation\AbstractRule;
-use Cora\Repositories\UserRepository;
+use Cora\Repository\UserRepository;
 
 class UniqueUserRule extends AbstractRule {
     protected $repo;

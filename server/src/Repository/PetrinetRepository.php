@@ -1,6 +1,6 @@
 <?php
 
-namespace Cora\Repositories;
+namespace Cora\Repository;
 
 use Cora\Domain\Petrinet\PetrinetInterface as IPetrinet;
 use Cora\Domain\Petrinet\PetrinetBuilder as PetrinetBuilder;

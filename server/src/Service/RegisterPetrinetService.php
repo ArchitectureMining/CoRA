@@ -6,8 +6,8 @@ use Psr\Http\Message\UploadedFileInterface as File;
 
 use Cora\Converters\LolaToPetrinet;
 use Cora\Converters\PetrinetTranslator;
-use Cora\Repositories\UserRepository;
-use Cora\Repositories\PetrinetRepository;
+use Cora\Repository\UserRepository;
+use Cora\Repository\PetrinetRepository;
 
 class RegisterPetrinetService {
     private $petrinetRepository;

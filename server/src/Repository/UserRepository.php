@@ -1,5 +1,5 @@
 <?php
-namespace Cora\Repositories;
+namespace Cora\Repository;
 
 use Cora\Domain\User\User;
 use Cora\Domain\User\UserRecord;

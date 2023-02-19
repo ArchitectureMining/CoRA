@@ -4,7 +4,7 @@ namespace Cora\Service;
 
 use Cora\Domain\Petrinet\Marking\MarkingBuilder;
 use Cora\Domain\Petrinet\MarkedPetrinet;
-use Cora\Repositories\PetrinetRepository;
+use Cora\Repository\PetrinetRepository;
 
 class GetPetrinetService {
     protected $repository;

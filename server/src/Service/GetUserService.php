@@ -2,7 +2,7 @@
 
 namespace Cora\Service;
 
-use Cora\Repositories\UserRepository;
+use Cora\Repository\UserRepository;
 use Cora\Exception\UserNotFoundException;
 
 class GetUserService {

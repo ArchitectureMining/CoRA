@@ -5,7 +5,7 @@ namespace Cora\Service;
 use Cora\Converters\PetrinetToDot;
 use Cora\Domain\Petrinet\PetrinetInterface as IPetrinet;
 use Cora\Domain\Petrinet\Marking\MarkingInterface as IMarking;
-use Cora\Repositories\PetrinetRepository;
+use Cora\Repository\PetrinetRepository;
 
 use Cora\Exception\PetrinetNotFoundException;
 

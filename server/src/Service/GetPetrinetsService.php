@@ -2,7 +2,7 @@
 
 namespace Cora\Service;
 
-use Cora\Repositories\PetrinetRepository;
+use Cora\Repository\PetrinetRepository;
 use Cora\Utils\Paginator;
 
 class GetPetrinetsService {

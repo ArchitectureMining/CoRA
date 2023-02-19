@@ -2,8 +2,8 @@
 
 namespace Cora\Service;
 
-use Cora\Repositories\SessionRepository;
-use Cora\Repositories\UserRepository;
+use Cora\Repository\SessionRepository;
+use Cora\Repository\UserRepository;
 
 class GetSessionService {
     private $sessionRepository, $userRepository;

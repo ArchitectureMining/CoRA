@@ -2,9 +2,9 @@
 
 namespace Cora\Service;
 
-use Cora\Repositories\SessionRepository as SessionRepo;
-use Cora\Repositories\PetrinetRepository as PetriRepo;
-use Cora\Repositories\UserRepository as UserRepo;
+use Cora\Repository\SessionRepository as SessionRepo;
+use Cora\Repository\PetrinetRepository as PetriRepo;
+use Cora\Repository\UserRepository as UserRepo;
 
 use Cora\Exception\UserNotFoundException;
 use Cora\Exception\PetrinetNotFoundException;

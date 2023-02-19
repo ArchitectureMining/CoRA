@@ -1,6 +1,6 @@
 <?php
 
-namespace Cora\Repositories;
+namespace Cora\Repository;
 
 use PDO;
 

@@ -1,8 +1,6 @@
 <?php
 
-namespace Cora\Repositories;
-
-use Cora\Repositories\AbstractRepository;
+namespace Cora\Repository;
 
 use Cora\Domain\Session\Session;
 use Cora\Domain\Session\SessionLog;
